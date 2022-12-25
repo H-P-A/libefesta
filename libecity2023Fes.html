@@ -1,0 +1,73 @@
+<!doctype html><!--HTMLヘッド部分ここから-->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>libecityFes2023</title>
+</head><!--HTMLヘッド部分ここまでと-->
+<script><!--イベントを設定 DOMツリーの構築が完了したらfunction() {}を実行する　scriptタグの読み込みはHTMLのbody直前に記述する場合、改めてDOMContentLoadedの設定は不要　scriptタグが読み込まれるまでにすでにDOMの読み込みが完了しているから-->
+		<!--DOM関連の読み込みだけが必要なのでdocumentとなっている-->
+document.addEventListener('DOMContentLoaded', function() {
+  var Timer = function(festivalStartTime, festivalEndTime, endMessage, outputDestination) {
+    this.festivalStartTime = festivalStartTime;
+    this.festivalEndTime = festivalEndTime;
+    this.endMessage = endMessage;
+    this.outputDestination = outputDestination;
+  };
+  
+  Timer.prototype.countDown = function() {
+    var festivalStartTime = new Date(this.festivalStartTime);
+    var festivalEndTime = new Date(this.festivalEndTime);
+    var oneDay = 24 * 60 * 60 * 1000;
+    var countDownTimer = document.getElementById(this.outputDestination);
+    var endMessage = this.endMessage;
+    var currentTimeCD = new Date();
+    var untilStartTime = new Date();
+    var untilFinishTime = new Date();
+    var d = 0;
+    var h = 0;
+    var m = 0;
+    var s = 0;
+
+    setInterval(calculateTime, 1000);
+
+    function calculateTime() {
+      currentTimeCD = new Date();
+      untilStartTime = festivalStartTime - currentTimeCD;
+      untilFinishTime = festivalEndTime - currentTimeCD;
+
+      if (currentTimeCD < festivalStartTime) {
+        d = Math.floor(untilStartTime / oneDay);
+        h = Math.floor((untilStartTime % oneDay) / (60 * 60 * 1000));
+        m = Math.floor((untilStartTime % oneDay) / (60 * 1000)) % 60;
+        s = Math.floor((untilStartTime % oneDay) / 1000) % 60 % 60;
+      } else {
+        d = Math.floor(untilFinishTime / oneDay);
+        h = Math.floor((untilFinishTime % oneDay) / (60 * 60 * 1000));
+        m = Math.floor((untilFinishTime % oneDay) / (60 * 1000)) % 60;
+        s = Math.floor((untilFinishTime % oneDay) / 1000) % 60 % 60;
+      }
+
+      showTime();
+    }
+
+    function showTime() {
+      if (currentTimeCD < festivalStartTime) {
+        countDownTimer.innerHTML
+        = '開始まで' + d + '日' + h + '時間' + m + '分' + s + '秒';
+      } else if (currentTimeCD >= festivalStartTime && currentTimeCD <= festivalEndTime) {
+        countDownTimer.innerHTML
+        = 'リベ大フェスはあと' + d + '日' + h + '時間' + m + '分' + s + '秒' + 'で始まるよ！！';
+      } else {
+        countDownTimer.innerHTML = endMessage;
+      }
+    }
+  }
+  
+  var myTimer = new Timer('2022/12/17 00:00:00', '2023/7/15 23:59:59', '始まるよ！', 'timer');
+  myTimer.countDown();
+}, false)
+</script>
+<body><!--HTMLヘッド部分-->
+	<div class="timer" id="timer"></div><!--HTMLにタイマーを表示するための要素を追加-->
+</body>
+</html><!--HTMLヘッド部分ここで終わり-->
