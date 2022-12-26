@@ -2,8 +2,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>リベ大フェス2023！</title>
-<link rel="stylesheet" href="css/styles.css">
+<title>libeUFes2023</title>
+<link rel="stylesheet" href="css/styles.css"
 </head>
 <h1>リベ大フェス2023</h1>
 <script>
@@ -57,14 +57,14 @@ document.addEventListener('DOMContentLoaded', function() {
         = '開始まで' + d + '日' + h + '時間' + m + '分' + s + '秒';
       } else if (currentTimeCD >= festivalStartTime && currentTimeCD <= festivalEndTime) {
         countDownTimer.innerHTML
-        = 'リベ大フェスはあと' + d + '日' + h + '時間' + m + '分' + s + '秒' + 'で始まるよ！！';
+        = 'リベ大フェスはあと' + d + '日' + h + '時間' + m + '分' + 'で始まるよ！！';
       } else {
         countDownTimer.innerHTML = endMessage;
       }
     }
   }
   
-  var myTimer = new Timer('2022/12/17 00:00:00', '2023/7/15 23:59:59', '始まるよ！', 'timer');
+  var myTimer = new Timer('2022/12/17 00:00', '2023/7/15 23:59', '始まるよ！', 'timer');
   myTimer.countDown();
 }, false)
 </script>
